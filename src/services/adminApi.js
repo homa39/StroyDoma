@@ -1,4 +1,3 @@
-
 const axios = require('axios');
 
 const SHEET_ID = '156uCCvbVBXqIJNnmgCTA5s0B-jnYaR9VOmHGFteeywc';
@@ -44,7 +43,31 @@ async function syncGoogleSheets() {
 }
 
 function getHouses(req, res) {
-  res.json(cachedHouses);
+  const { material, floors, minArea } = req.query;
+  let filteredHouses = [...cachedHouses];
+
+  // Фильтрация по материалу
+  if (material) {
+    filteredHouses = filteredHouses.filter(house => 
+      house.materials.toLowerCase().includes(material.toLowerCase())
+    );
+  }
+
+  // Фильтрация по количеству этажей
+  if (floors) {
+    filteredHouses = filteredHouses.filter(house => 
+      house.floors === parseInt(floors)
+    );
+  }
+
+  // Фильтрация по минимальной площади
+  if (minArea) {
+    filteredHouses = filteredHouses.filter(house => 
+      house.area >= parseInt(minArea)
+    );
+  }
+
+  res.json(filteredHouses);
 }
 
 function addHouse(req, res) {

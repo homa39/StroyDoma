@@ -39,18 +39,23 @@ function populateFilters() {
   document.getElementById("filterArea").addEventListener("input", applyFilters);
 }
 
-function applyFilters() {
-  const mat = document.getElementById("filterMaterial").value;
-  const fl = document.getElementById("filterFloors").value;
-  const ar = parseInt(document.getElementById("filterArea").value);
+async function applyFilters() {
+  const material = document.getElementById("filterMaterial").value;
+  const floors = document.getElementById("filterFloors").value;
+  const minArea = document.getElementById("filterArea").value;
 
-  const filtered = allHouses.filter(h => {
-    return (!mat || h.materials === mat) &&
-           (!fl || h.floors == fl) &&
-           (!ar || h.area >= ar);
-  });
+  try {
+    const queryParams = new URLSearchParams();
+    if (material) queryParams.append('material', material);
+    if (floors) queryParams.append('floors', floors);
+    if (minArea) queryParams.append('minArea', minArea);
 
-  renderHouses(filtered);
+    const res = await fetch(`/api/houses?${queryParams.toString()}`);
+    const filteredHouses = await res.json();
+    renderHouses(filteredHouses);
+  } catch (err) {
+    console.error("Ошибка при фильтрации:", err);
+  }
 }
 
 function renderHouses(houses) {
@@ -58,7 +63,13 @@ function renderHouses(houses) {
   container.innerHTML = '';
 
   if (houses.length === 0) {
-    container.innerHTML = `<p class="text-muted text-center">Нет подходящих домов</p>`;
+    container.innerHTML = `
+      <div class="col-12">
+        <div class="alert alert-info text-center">
+          <i class="fas fa-info-circle me-2"></i>
+          Нет подходящих домов. Попробуйте изменить параметры фильтрации.
+        </div>
+      </div>`;
     return;
   }
 
@@ -68,16 +79,38 @@ function renderHouses(houses) {
 
     col.innerHTML = `
       <div class="card house-card h-100 shadow-sm border-0" data-id="${house.id}" style="cursor:pointer;">
-        <img src="${house.imageUrl}" class="card-img-top" alt="${house.name}">
+        <div class="position-relative">
+          <img src="${house.imageUrl}" class="card-img-top" alt="${house.name}" style="height: 200px; object-fit: cover;">
+          <div class="position-absolute top-0 end-0 m-2">
+            <span class="badge bg-primary">${house.area} м²</span>
+          </div>
+        </div>
         <div class="card-body">
           <h5 class="card-title">${house.name}</h5>
-          <p class="card-text small text-muted">${house.materials}, ${house.area} м², ${house.floors} этаж(а)</p>
-          <strong class="text-primary">от ${house.price} ₽</strong>
+          <p class="card-text small text-muted">
+            <i class="fas fa-layer-group me-1"></i> ${house.materials}<br>
+            <i class="fas fa-building me-1"></i> ${house.floors} этаж(а)
+          </p>
+          <div class="d-flex justify-content-between align-items-center">
+            <strong class="text-primary">от ${house.price.toLocaleString()} ₽</strong>
+            <button class="btn btn-outline-primary btn-sm details-btn">
+              <i class="fas fa-info-circle"></i> Подробнее
+            </button>
+          </div>
         </div>
       </div>
     `;
 
-    col.querySelector('.card').addEventListener('click', () => openModal(house));
+    // Добавляем обработчики событий
+    const card = col.querySelector('.card');
+    const detailsBtn = col.querySelector('.details-btn');
+
+    card.addEventListener('click', () => openModal(house));
+    detailsBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Предотвращаем всплытие события
+      openModal(house);
+    });
+
     container.appendChild(col);
   });
 }
@@ -89,7 +122,7 @@ function openModal(house) {
   document.getElementById("modalHouseArea").textContent = house.area;
   document.getElementById("modalHouseFloors").textContent = house.floors;
   document.getElementById("modalHouseMaterials").textContent = house.materials;
-  document.getElementById("modalHousePrice").textContent = house.price;
+  document.getElementById("modalHousePrice").textContent = house.price.toLocaleString();
 
   const telegramText = encodeURIComponent(`Здравствуйте! Меня заинтересовал проект дома: ${house.name}, ID: ${house.id}`);
   document.getElementById("modalTelegramBtn").href = `https://t.me/your_bot_username?text=${telegramText}`;

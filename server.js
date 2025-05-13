@@ -22,7 +22,10 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public'))); // обслуживаем HTML, CSS, JS
+
+// Статические файлы
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/src', express.static(path.join(__dirname, 'src')));
 
 // ==== API endpoints ====
 // Дома
@@ -64,7 +67,7 @@ cron.schedule('0 * * * *', async () => {
     console.log('✅ Google Sheets синхронизация при запуске завершена');
     // Обработка маршрута для просмотра отдельной новости
     app.get('/news/:id', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'news.html'));
+      res.sendFile(path.join(__dirname, 'public', 'news.html'));
     });
 
     app.listen(PORT, () => {
