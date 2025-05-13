@@ -66,11 +66,11 @@
         <li class="nav-item"><a class="nav-link" href="#catalog">Каталог домов</a></li>
         <li class="nav-item"><a class="nav-link" href="#about">О компании</a></li>
         <li class="nav-item"><a class="nav-link" href="news.html">Новости</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
+        <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
       </ul>
-      <a href="#requestModal" class="btn btn-dark ms-3" data-bs-toggle="modal">
+      <button class="btn btn-dark ms-3" data-bs-toggle="modal" data-bs-target="#requestModal">
         <i class="fa-solid fa-phone"></i> Заказать звонок
-      </a>
+      </button>
     </div>
   </div>
 </nav>
@@ -82,7 +82,7 @@
     <p class="lead">СтройДом — надёжный партнёр в строительстве частных домов под ключ.</p>
     <p class="mb-4">Современные технологии, качественные материалы и опытные специалисты.</p>
     <div>
-      <a href="#requestModal" class="btn btn-light btn-lg me-3" data-bs-toggle="modal">Оставить заявку</a>
+      <button class="btn btn-light btn-lg me-3" data-bs-toggle="modal" data-bs-target="#requestModal">Оставить заявку</button>
       <a href="#catalog" class="btn btn-outline-light btn-lg">Наши проекты</a>
     </div>
   </div>
@@ -235,6 +235,43 @@
                         Связаться с менеджером
                     </a>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для заявок -->
+<div class="modal fade" id="requestModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Оставить заявку</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="requestForm">
+                    <div class="mb-3">
+                        <label for="requestName" class="form-label">Ваше имя</label>
+                        <input type="text" class="form-control" id="requestName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="requestPhone" class="form-label">Номер телефона</label>
+                        <input type="tel" class="form-control" id="requestPhone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="requestType" class="form-label">Тип заявки</label>
+                        <select class="form-select" id="requestType" required>
+                            <option value="call">Заказать звонок</option>
+                            <option value="consultation">Получить консультацию</option>
+                            <option value="project">Обсудить проект</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="requestMessage" class="form-label">Сообщение (необязательно)</label>
+                        <textarea class="form-control" id="requestMessage" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Отправить заявку</button>
+                </form>
             </div>
         </div>
     </div>

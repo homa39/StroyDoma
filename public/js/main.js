@@ -90,35 +90,85 @@ function formatPrice(price) {
     }).format(price);
 }
 
-// Обработчик отправки формы
-document.getElementById('requestForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const formData = {
-        name: document.getElementById('name').value,
-        phone: document.getElementById('phone').value,
-        houseId: document.getElementById('house').value
-    };
+// Обработка формы заявки
+document.addEventListener('DOMContentLoaded', function() {
+    const requestForm = document.getElementById('requestForm');
+    if (requestForm) {
+        requestForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
 
-    try {
-        const response = await fetch('/api/request', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
+            const formData = {
+                name: document.getElementById('requestName').value,
+                phone: document.getElementById('requestPhone').value,
+                type: document.getElementById('requestType').value,
+                message: document.getElementById('requestMessage').value
+            };
+
+            // Формируем сообщение для WhatsApp
+            const whatsappMessage = `Новая заявка!\n\nИмя: ${formData.name}\nТелефон: ${formData.phone}\nТип заявки: ${formData.type}${formData.message ? '\nСообщение: ' + formData.message : ''}`;
+            const whatsappUrl = `https://wa.me/79001234567?text=${encodeURIComponent(whatsappMessage)}`;
+
+            // Открываем WhatsApp с предзаполненным сообщением
+            window.open(whatsappUrl, '_blank');
+
+            // Закрываем модальное окно
+            const modal = bootstrap.Modal.getInstance(document.getElementById('requestModal'));
+            modal.hide();
+
+            // Очищаем форму
+            requestForm.reset();
+
+            // Показываем уведомление об успешной отправке
+            alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
+        });
+    }
+
+    // Маска для телефона
+    const phoneInput = document.getElementById('requestPhone');
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function(e) {
+            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+            e.target.value = !x[2] ? x[1] : '+7 (' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '');
+        });
+    }
+});
+
+// Обработка формы обратной связи
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = {
+                name: document.getElementById('contactName').value,
+                phone: document.getElementById('contactPhone').value,
+                email: document.getElementById('contactEmail').value,
+                message: document.getElementById('contactMessage').value
+            };
+
+            // Формируем сообщение для WhatsApp
+            const whatsappMessage = `Новое сообщение с сайта!\n\nИмя: ${formData.name}\nТелефон: ${formData.phone}\nEmail: ${formData.email}\nСообщение: ${formData.message}`;
+            const whatsappUrl = `https://wa.me/79001234567?text=${encodeURIComponent(whatsappMessage)}`;
+
+            // Открываем WhatsApp с предзаполненным сообщением
+            window.open(whatsappUrl, '_blank');
+
+            // Очищаем форму
+            contactForm.reset();
+
+            // Показываем уведомление об успешной отправке
+            alert('Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время.');
         });
 
-        if (response.ok) {
-            showSuccess('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
-            document.getElementById('requestForm').reset();
-            bootstrap.Modal.getInstance(document.getElementById('requestModal')).hide();
-        } else {
-            throw new Error('Ошибка при отправке заявки');
+        // Маска для телефона в форме обратной связи
+        const contactPhoneInput = document.getElementById('contactPhone');
+        if (contactPhoneInput) {
+            contactPhoneInput.addEventListener('input', function(e) {
+                let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+                e.target.value = !x[2] ? x[1] : '+7 (' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '');
+            });
         }
-    } catch (error) {
-        console.error('Error submitting form:', error);
-        showError('Не удалось отправить заявку. Пожалуйста, попробуйте позже.');
     }
 });
 

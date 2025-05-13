@@ -124,8 +124,13 @@ function openModal(house) {
   document.getElementById("modalHouseMaterials").textContent = house.materials;
   document.getElementById("modalHousePrice").textContent = house.price.toLocaleString();
 
-  const telegramText = encodeURIComponent(`Здравствуйте! Меня заинтересовал проект дома: ${house.name}, ID: ${house.id}`);
-  document.getElementById("modalTelegramBtn").href = `https://t.me/your_bot_username?text=${telegramText}`;
+  const message = `Здравствуйте! Меня заинтересовал проект дома: ${house.name}, ID: ${house.id}`;
+  const whatsappUrl = `https://wa.me/79001234567?text=${encodeURIComponent(message)}`;
+  
+  document.getElementById("modalTelegramBtn").href = whatsappUrl;
+  document.getElementById("modalTelegramBtn").textContent = "Связаться через WhatsApp";
+  document.getElementById("modalTelegramBtn").classList.remove("btn-primary");
+  document.getElementById("modalTelegramBtn").classList.add("btn-success");
 
   const modal = new bootstrap.Modal(document.getElementById('houseModal'));
   modal.show();
