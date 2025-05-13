@@ -1,0 +1,242 @@
+/* Общие стили */
+
+html, body {
+    height: 100%;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+    padding-top: 72px;
+    background-color: #fff;
+    color: #212529;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 700;
+}
+
+/* Навигация */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+.nav-link {
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    color: #212529;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: #0d6efd;
+}
+
+.btn-dark {
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.btn-dark:hover {
+    background-color: #0b5ed7;
+}
+
+/* Герой-секция */
+.hero-section {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                url('../images/hero-bg.jpg') center center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.hero-section p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.hero-section .btn {
+    padding: 0.75rem 2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    margin: 0.5rem;
+}
+
+/* Карточки домов */
+.house-card {
+    transition: transform 0.3s ease;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.house-card:hover {
+    transform: translateY(-5px);
+}
+
+.house-card img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+/* Анимации */
+.fade-in {
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Секция "О компании" */
+#about h2 {
+    font-weight: 700;
+}
+
+.stats-box h4 {
+    font-size: 1.8rem;
+    margin-bottom: 0.25rem;
+}
+
+.stats-box p {
+    margin-bottom: 0;
+    color: #6c757d;
+}
+
+/* Карточка года основания */
+.year-card {
+    background: white;
+    padding: 1rem 1.25rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 0.9rem;
+}
+
+.year-card h6 {
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+/* Модальные окна */
+.modal-content {
+    border-radius: 15px;
+}
+
+.modal-header {
+    border-bottom: none;
+    padding: 1.5rem;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+/* Формы */
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+}
+
+/* Кнопки */
+.btn-primary {
+    padding: 0.75rem 2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.25rem;
+    }
+    
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .stats-box {
+        flex: 1 0 100%;
+        margin-bottom: 1rem;
+    }
+}
+
+.house-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.house-card .card-body {
+    padding: 1rem 1.25rem;
+}
+
+.house-card .btn {
+    border-radius: 30px;
+    font-weight: 600;
+}
+
+.news-card {
+    transition: transform 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+  
+  .news-card .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .news-card .card-text {
+    color: #555;
+  }
+  
+  .news-date {
+    font-size: 0.85rem;
+    color: #888;
+  }
+  

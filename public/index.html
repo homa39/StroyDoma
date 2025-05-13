@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>СтройДом - Строительство частных домов</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <script type="module">
+    import { loadHousesToCatalog } from './js/adminApi.js';
+    document.addEventListener('DOMContentLoaded', loadHousesToCatalog);
+  </script>
+  
+  <link href="css/style.css" rel="stylesheet">
+  <style>
+    .hero-section {
+      background: url('images/your-banner-image.jpg') center center / cover no-repeat;
+      height: 100vh;
+      position: relative;
+      color: white;
+      display: flex;
+      align-items: center;
+    }
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    .stats-box {
+      text-align: center;
+    }
+    .year-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+    }
+  </style>
+</head>
+
+
+<body>
+
+<!-- Навигация -->
+<nav class="navbar navbar-expand-lg bg-white shadow-sm">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <i class="fa-solid fa-house fa-lg me-2 text-primary"></i> <strong>СтройДом</strong>
+    </a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="#">Главная</a></li>
+        <li class="nav-item"><a class="nav-link" href="#catalog">Каталог домов</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">О компании</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
+      </ul>
+      <a href="#requestModal" class="btn btn-dark ms-3" data-bs-toggle="modal">
+        <i class="fa-solid fa-phone"></i> Заказать звонок
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Баннер -->
+<header class="hero-section">
+  <div class="container hero-content text-center">
+    <h1 class="display-4 fw-bold">Постройте дом своей мечты с нами</h1>
+    <p class="lead">СтройДом — надёжный партнёр в строительстве частных домов под ключ.</p>
+    <p class="mb-4">Современные технологии, качественные материалы и опытные специалисты.</p>
+    <div>
+      <a href="#requestModal" class="btn btn-light btn-lg me-3" data-bs-toggle="modal">Оставить заявку</a>
+      <a href="#catalog" class="btn btn-outline-light btn-lg">Наши проекты</a>
+    </div>
+  </div>
+</header>
+
+<!-- О компании -->
+<section id="about" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-4">О нашей компании</h2>
+    <p class="text-center text-muted mb-5">
+      Более 15 лет мы проектируем и строим качественные дома, которые становятся уютным семейным пространством.
+    </p>
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <p><strong class="text-primary">СтройДом</strong> — это команда профессионалов, специализирующихся на строительстве частных домов с использованием современных технологий и качественных материалов.</p>
+        <p>Наша миссия — создавать не просто здания, а комфортные пространства для жизни, где каждая деталь продумана до мелочей. Мы гордимся своей репутацией и стремимся превосходить ожидания наших клиентов.</p>
+        <div class="d-flex justify-content-between text-center mt-4">
+          <div class="stats-box">
+            <h4 class="text-primary fw-bold">15+</h4>
+            <p class="text-muted">лет опыта</p>
+          </div>
+          <div class="stats-box">
+            <h4 class="text-primary fw-bold">500+</h4>
+            <p class="text-muted">построенных домов</p>
+          </div>
+          <div class="stats-box">
+            <h4 class="text-primary fw-bold">100%</h4>
+            <p class="text-muted">довольных клиентов</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 position-relative">
+        <img src="images/your-houses-image.jpg" class="img-fluid rounded shadow-sm" alt="Фото домов">
+        <div class="year-card">
+          <h6 class="mb-0 fw-bold text-primary">2010</h6>
+          <small class="text-muted">год основания компании</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ... предыдущие секции -->
+
+<!-- Преимущества -->
+<section class="py-5 bg-white" id="advantages">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-3">Наши преимущества</h2>
+      <p class="text-center text-muted mb-5">
+        Мы стремимся к совершенству в каждом проекте и гордимся качеством наших услуг
+      </p>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100 text-center shadow-sm border-0 p-4">
+            <i class="fa-solid fa-shield-halved fa-2x text-primary mb-3"></i>
+            <h5 class="fw-semibold">Надёжность</h5>
+            <p class="text-muted">Мы используем только проверенные материалы и технологии, гарантируя долговечность вашего дома.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100 text-center shadow-sm border-0 p-4">
+            <i class="fa-solid fa-clock fa-2x text-primary mb-3"></i>
+            <h5 class="fw-semibold">Соблюдение сроков</h5>
+            <p class="text-muted">Работаем по чёткому графику и сдаём объекты вовремя, избегая задержек и форс-мажоров.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100 text-center shadow-sm border-0 p-4">
+            <i class="fa-solid fa-thumbs-up fa-2x text-primary mb-3"></i>
+            <h5 class="fw-semibold">Высокое качество</h5>
+            <p class="text-muted">Контроль на всех этапах гарантирует отличное качество конечного результата.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100 text-center shadow-sm border-0 p-4">
+            <i class="fa-solid fa-hand-holding-heart fa-2x text-primary mb-3"></i>
+            <h5 class="fw-semibold">Индивидуальный подход</h5>
+            <p class="text-muted">Учитываем ваши пожелания и адаптируем проекты под конкретные условия и бюджет.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+      </div>
+    </div>
+  </section>
+  <!-- Каталог -->
+<section id="catalog" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4">Каталог проектов</h2>
+  
+      <!-- Фильтры -->
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <select id="filterMaterial" class="form-select">
+            <option value="">Все материалы</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <select id="filterFloors" class="form-select">
+            <option value="">Все этажности</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <input type="number" id="filterArea" class="form-control" placeholder="Минимальная площадь (м²)">
+        </div>
+      </div>
+  
+      <!-- Контейнер домов -->
+      <div class="row" id="houses-container"></div>
+    </div>
+  </section>
+  
+  <!-- Модалка -->
+  <div class="modal fade" id="houseModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalHouseTitle"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body row">
+          <div class="col-md-6">
+            <img id="modalHouseImage" src="" class="img-fluid rounded" alt="">
+          </div>
+          <div class="col-md-6">
+            <p id="modalHouseDesc"></p>
+            <ul class="list-unstyled small">
+              <li><strong>Площадь:</strong> <span id="modalHouseArea"></span> м²</li>
+              <li><strong>Этажей:</strong> <span id="modalHouseFloors"></span></li>
+              <li><strong>Материалы:</strong> <span id="modalHouseMaterials"></span></li>
+              <li><strong>Цена:</strong> от <span id="modalHousePrice"></span> ₽</li>
+            </ul>
+            <a href="#" target="_blank" id="modalTelegramBtn" class="btn btn-primary w-100 mt-3">
+              Связаться с менеджером
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <section id="news" class="py-5">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-4">Новости</h2>
+      <div id="newsContainer" class="row g-4">
+        <!-- Новости появятся здесь -->
+      </div>
+    </div>
+    <section id="news" class="py-5 bg-light">
+        <div class="container">
+          <h2 class="text-center mb-5">Новости компании</h2>
+          <div class="row" id="newsContainer">
+            <!-- Новости загружаются динамически -->
+          </div>
+        </div>
+      </section>
+      
+  </section>
+  
+
+  <!-- Футер -->
+  <footer class="bg-light py-4 mt-5 border-top">
+    <div class="container text-center small text-muted">
+      &copy; СтройДом. Все права защищены.
+    </div>
+  </footer>
+
+  
+
+<!-- Каталог и остальная структура остаётся -->
+<!-- Модалка, JS – без изменений -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/main.js"></script>
+<script type="module">
+    import { loadHousesToCatalog } from "./js/adminApi.js";
+    import { loadNews } from "./js/newsApi.js";
+  
+    document.addEventListener("DOMContentLoaded", () => {
+      loadHousesToCatalog();  // Отображение домов
+      loadNews();             // Отображение новостей
+    });
+  </script>
+  
+
+</body>
+</html>
